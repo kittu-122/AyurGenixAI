@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Chat with AyurGenix AI - Personalized Ayurvedic Doctor</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f7fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      height: 80vh;
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background-color: #f59e0b;
+      color: white;
+      padding: 18px;
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chat-header svg {
+      margin-right: 10px;
+    }
+
+    .chat-messages {
+      flex-grow: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      scroll-behavior: smooth;
+    }
+
+    .message-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .message-container.user {
+      align-items: flex-end;
+    }
+
+    .message-container.ai {
+      align-items: flex-start;
+    }
+
+    .message-bubble {
+      max-width: 75%;
+      padding: 14px 20px;
+      border-radius: 18px;
+      font-size: 1rem;
+      line-height: 1.5;
+      position: relative;
+      white-space: pre-wrap;
+    }
+
+    .message-container.ai .message-bubble {
+      background-color: #f59e0b;
+      color: white;
+      border-bottom-left-radius: 4px;
+    }
+
+    .message-container.user .message-bubble {
+      background-color: #e2e8f0;
+      color: #334155;
+      border-bottom-right-radius: 4px;
+    }
+
+    .timestamp {
+      font-size: 0.75rem;
+      margin-top: 4px;
+      opacity: 0.7;
+    }
+
+    .chat-input-container {
+      display: flex;
+      padding: 16px;
+      background-color: #fff;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .chat-input {
+      flex-grow: 1;
+      padding: 12px 16px;
+      border-radius: 24px;
+      border: 1px solid #d1d5db;
+      font-size: 1rem;
+      margin-right: 12px;
+      transition: all 0.3s ease;
+      resize: none;
+      height: 50px;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+
+    .chat-input:focus {
+      outline: none;
+      border-color: #f59e0b;
+      box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+    }
+
+    .send-button {
+      background-color: #f59e0b;
+      color: white;
+      width: 50px;
+      height: 50px;
+      font-size: 1.25rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .send-button:hover {
+      background-color: #e67e22;
+      transform: translateY(-2px);
+    }
+
+    .send-button:disabled {
+      background-color: #d1d5db;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f59e0b;
+      color: white;
+      border-radius: 18px;
+      border-bottom-left-radius: 4px;
+      margin-bottom: 8px;
+      align-self: flex-start;
+      font-size: 0.9rem;
+    }
+
+    .typing-indicator span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: white;
+      border-radius: 50%;
+      margin-left: 5px;
+      animation: typing 1.5s infinite ease-in-out;
+    }
+
+    .typing-indicator span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .typing-indicator span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes typing {
+      0%, 60%, 100% {
+        transform: translateY(0);
+      }
+      30% {
+        transform: translateY(-5px);
+      }
+    }
+
+    .status-bar {
+      text-align: center;
+      padding: 4px;
+      font-size: 0.8rem;
+      color: #64748b;
+      background-color: #f1f5f9;
+    }
+
+    /* Message formatting */
+    .message-bubble ul, .message-bubble ol {
+      margin-left: 20px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+    .message-bubble li {
+      margin-bottom: 4px;
+    }
+
+    .message-bubble p {
+      margin-bottom: 8px;
+    }
+
+    /* Scrollbar styling */
+    .chat-messages::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .chat-messages::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    .chat-messages::-webkit-scrollbar-thumb {
+      background: #d1d5db;
+      border-radius: 10px;
+    }
+
+    .chat-messages::-webkit-scrollbar-thumb:hover {
+      background: #a3a3a3;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="text-gray-800 body-font shadow-sm bg-white sticky top-0 z-50">
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+      <a href="{% url 'landing_page' %}" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-yellow-500 rounded-full" viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+        </svg>
+        <span class="ml-3 text-xl font-bold">AyurGenix AI</span>
+      </a>
+      <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+        <a href="{% url 'edit_profile' %}" class="mr-5 hover:text-gray-900">Edit Profile</a>
+        <a href="{% url 'logout' %}" class="mr-5 hover:text-gray-900">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Chat Container -->
+    <div class="chat-container">
+      <div class="chat-header">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        Chat with AyurGenix AI
+      </div>
+
+      <div class="status-bar" id="status-bar">
+        Connected to AyurGenix AI
+      </div>
+
+      <div class="chat-messages" id="chat-messages">
+        <div class="message-container ai">
+          <div class="message-bubble">
+            Hello! I'm AyurGenix AI, your personalized Ayurvedic health assistant. How can I help you today?
+          </div>
+          <div class="timestamp">Just now</div>
+        </div>
+        
+        {% for message in previous_messages %}
+          <div class="message-container {% if message.is_ai %}ai{% else %}user{% endif %}">
+            <div class="message-bubble">{{ message.message }}</div>
+            <div class="timestamp">{{ message.timestamp|date:"h:i A" }}</div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="chat-input-container">
+        <textarea 
+          class="chat-input" 
+          id="chat-input" 
+          placeholder="Type your message..." 
+          rows="1"
+          onkeydown="if(event.keyCode == 13 && !event.shiftKey) { event.preventDefault(); sendMessage(); }"></textarea>
+        <button class="send-button" id="send-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-gray-600 body-font bg-white border-t border-gray-200">
+    <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+      <a href="{% url 'landing_page' %}" class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-yellow-500 rounded-full" viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+        </svg>
+        <span class="ml-3 text-xl">AyurGenix AI</span>
+      </a>
+      <p class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">
+        © 2025 AyurGenix AI — All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const sendButton = document.getElementById('send-button');
+    const chatMessages = document.getElementById('chat-messages');
+    const chatInput = document.getElementById('chat-input');
+    const statusBar = document.getElementById('status-bar');
+    let isProcessing = false;
+
+    // Auto-resize textarea as user types
+    chatInput.addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = (this.scrollHeight < 150) ? (this.scrollHeight) + 'px' : '150px';
+    });
+
+    // Function to format the current time
+    function formatTime() {
+      const now = new Date();
+      return now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+    }
+
+    // Create typing indicator
+    function createTypingIndicator() {
+      const typingIndicator = document.createElement('div');
+      typingIndicator.className = 'typing-indicator';
+      typingIndicator.innerHTML = 'AyurGenix is thinking<span></span><span></span><span></span>';
+      chatMessages.appendChild(typingIndicator);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      return typingIndicator;
+    }
+
+    // Remove typing indicator
+    function removeTypingIndicator(indicator) {
+      if (indicator && indicator.parentNode) {
+        indicator.parentNode.removeChild(indicator);
+      }
+    }
+
+    async function sendMessage() {
+      const userMessage = chatInput.value.trim();
+      if (!userMessage || isProcessing) return;
+
+      isProcessing = true;
+      sendButton.disabled = true;
+      statusBar.textContent = "Processing your message...";
+
+      // Display the user's message
+      const userContainer = document.createElement('div');
+      userContainer.classList.add('message-container', 'user');
+      
+      const userBubble = document.createElement('div');
+      userBubble.classList.add('message-bubble');
+      userBubble.textContent = userMessage;
+      
+      const timestamp = document.createElement('div');
+      timestamp.classList.add('timestamp');
+      timestamp.textContent = formatTime();
+      
+      userContainer.appendChild(userBubble);
+      userContainer.appendChild(timestamp);
+      chatMessages.appendChild(userContainer);
+      
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      chatInput.value = '';
+      chatInput.style.height = '50px'; // Reset textarea height
+      
+      // Create typing indicator
+      const typingIndicator = createTypingIndicator();
+
+      try {
+        const response = await fetch("{% url 'send_message' %}", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+          },
+          body: JSON.stringify({ message: userMessage })
+        });
+
+        const data = await response.json();
+        removeTypingIndicator(typingIndicator);
+        
+        if (data.response) {
+          const aiContainer = document.createElement('div');
+          aiContainer.classList.add('message-container', 'ai');
+          
+          const aiBubble = document.createElement('div');
+          aiBubble.classList.add('message-bubble');
+          aiBubble.textContent = data.response;
+          
+          const timestamp = document.createElement('div');
+          timestamp.classList.add('timestamp');
+          timestamp.textContent = formatTime();
+          
+          aiContainer.appendChild(aiBubble);
+          aiContainer.appendChild(timestamp);
+          chatMessages.appendChild(aiContainer);
+          
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+          statusBar.textContent = "Connected to AyurGenix AI";
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        removeTypingIndicator(typingIndicator);
+        
+        const errorContainer = document.createElement('div');
+        errorContainer.classList.add('message-container', 'ai');
+        
+        const errorBubble = document.createElement('div');
+        errorBubble.classList.add('message-bubble');
+        errorBubble.style.backgroundColor = "#ef4444";
+        errorBubble.textContent = "Sorry, I encountered an error. Please try again later.";
+        
+        errorContainer.appendChild(errorBubble);
+        chatMessages.appendChild(errorContainer);
+        
+        statusBar.textContent = "Connection error. Please try again.";
+      } finally {
+        isProcessing = false;
+        sendButton.disabled = false;
+        chatInput.focus();
+      }
+    }
+
+    sendButton.addEventListener('click', sendMessage);
+    
+    // Focus input field when page loads
+    window.onload = function() {
+      chatInput.focus();
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    };
+  </script>
+</body>
+</html>

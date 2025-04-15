@@ -17,13 +17,53 @@ AyurGenixAI is an innovative solution designed to bridge the gap between traditi
 2. Users can input symptoms into a user-friendly interface to receive precise advice on Ayurvedic remedies, promoting overall health and wellness.
 3. The recommendation can include details such as herbs, dietary changes, lifestyle modifications, and other home remedies.
 
+## 🔬 Motivation
+In the modern digital era, users often struggle to access personalized and trustworthy Ayurvedic healthcare. AyurGenixAI addresses these challenges by delivering accurate, evidence-based, and individualized recommendations, digitizing Ayurveda using intelligent systems.
+
 ## Features
 - **User Input Analysis:** Captures and processes user symptoms and conditions.
-- **Personalized Recommendations:** Suggests Ayurvedic medications tailored to individual needs.
+- **Generative AI-Based Recommendations (LLaMA 3.1):** Suggests Ayurvedic medications tailored to individual needs.
 - **Extensive Database:** Utilizes a comprehensive database of Ayurvedic treatments and their uses.
 - **Interactive Interface:** Easy-to-use interface for a seamless user experience.
+- **Human-in-the-Loop (HITL) Validation Workflow** – Expert practitioners validate AI-generated recommendations, ensuring clinical reliability, accuracy, and adherence to Ayurvedic principles.
 - **Secure and Confidential:** Ensures user data privacy and security.
-- **Educational Resources:** Detailed information about Ayurvedic herbs, their uses, and benefits.
+
+
+## 📊 Dataset Information
+
+**Title**: AyurGenixAI: Ayurvedic Dataset  
+**Source**: [Kaggle Dataset – DOI](https://doi.org/10.34740/KAGGLE/DS/7148374)  
+**Entries**: 15,160  
+**Diseases Covered**: 447  
+**Attributes**: 35 holistic parameters  
+**Derived From**: Ancient Ayurvedic scriptures, clinical sources, and validated inputs
+
+> This structured dataset powers the AI models by providing rich, diverse, and meaningful health insights.
+
+## ⚙️ System Architecture
+
+| Component     | Description                                                                 |
+|--------------|-----------------------------------------------------------------------------|
+| **Frontend** | Django templates (HTML/CSS), responsive UI                                 |
+| **Backend**  | Django REST Framework, PostgreSQL for user and medical data                |
+| **AI Engine**| NLP pipeline + LLaMA 3.1 (Generative AI) for context-aware recommendations |
+| **Database** | PostgreSQL                                                                  |
+| **Chatbot**  | LLaMA-based multilingual, dynamic chatbot                                   |
+| **Deployment**| Heroku (backend), Netlify or Vercel (frontend)                             |
+
+
+## 🛠️ Technology Stack
+
+| Category         | Tools & Frameworks                                                                 |
+|------------------|-------------------------------------------------------------------------------------|
+| **Programming**  | Python                                                                             |
+| **Frameworks**   | Django, Django REST Framework                                                      |
+| **AI/ML**        | Scikit-learn, Hugging Face Transformers, PyTorch, Ollama (LLaMA 3.1)               |
+| **NLP**          | NLTK, LLaMA                                                                        |
+| **Database**     | PostgreSQL                                                                         |
+| **Frontend**     | HTML, CSS                                                                          |
+| **Deployment**   | Heroku, Netlify, Vercel, AWS Elastic Beanstalk                                     |
+| **Others**       | Docker (optional), Pandas, Matplotlib, Seaborn                                     |
 
 ## Components
 - **Data Processing:** Scripts for preprocessing data and preparing it for model training.
@@ -79,90 +119,88 @@ Run the `formulation_engine.py` script to generate Ayurvedic drug and formulatio
 python recommendation/formulation_engine.py
 ```
 
-## CSV File Columns
-- `Herb Name`
-- `Parts Used in Treatment`
-- `Disease`
-- `Symptoms/Condition`
-- `Therapeutic Uses`
-- `Formulation`
-- `Dosage`
-- `Administration Guidelines`
-- `Pharmacological Property`
-- `Side Effects`
-- `Prakriti`
-- `Dosha`
+## 🔍 Key Attributes and Features in Dataset
 
-## Documentation Links
+### 1. Patient-Specific Information
+- Age Group, Gender, Occupation and Lifestyle, Cultural Preferences, Family History
 
-### 1. NLP Model - BERT
-- [BERT GitHub](https://github.com/google-research/bert)  
-  **Use**: Provides the implementation of the BERT model, a foundational transformer model for natural language understanding, enabling effective text analysis and feature extraction in Ayurvedic contexts.
-  
-- [BERT Fine-Tuning Guide](https://huggingface.co/transformers/training.html)  
-  **Use**: Offers guidelines for fine-tuning BERT on custom datasets, allowing for improved performance on specific Ayurvedic tasks.
+### 2. Symptoms and Diagnosis
+- Disease (English, Hindi, Marathi), Hindi Name, Marathi Name, Symptoms, Diagnosis & Tests, Symptom Severity, Duration of Treatment
 
-### 2. Contextual Model - Ollama 3
+### 3. Medical and Environmental Factors
+- Medical History, Current Medications, Risk Factors, Environmental Factors, Sleep Patterns, Stress Levels, Physical Activity Levels
+
+### 4. Ayurvedic Insights
+- Doshas, Constitution/Prakriti, Seasonal Variation, Dietary Habits, Herbal Formulations, Herbal/Alternative Remedies
+
+### 5. Treatment Approaches
+- Diet and Lifestyle Recommendations, Yoga & Physical Therapy, Medical Intervention, Prevention, Prognosis, Complications, Patient Recommendations
+
+### 6. Additional Parameters
+- Allergies (Food/Environmental), Cultural Preferences, Formulation
+
+
+## 🧪 Performance Highlights
+
+| Model           | Accuracy |
+|----------------|----------|
+| Random Forest  | 55%      |
+| XGBoost        | 85%      |
+| **LLaMA 3.1**  | **90%**  |
+
+- **System Usability**: High SUS scores in end-user testing  
+- **Clinical Accuracy**: Validated by Ayurvedic experts  
+- **Human-in-the-Loop Assurance**: Ayurvedic practitioners review and refine AI-generated outputs, ensuring reliability, clinical relevance, and alignment with traditional healing principles.
+
+## 📚 Documentation Links
+
+### 1. NLP Model 
+- [Hugging Face Transformers – BERT Fine-Tuning](https://huggingface.co/transformers/training.html)  
+  **Use**: Best practices for fine-tuning BERT on custom Ayurvedic symptom datasets.
+
+### 2. Generative AI – Ollama + LLaMA
 - [Ollama Documentation](https://ollama.com)  
-  **Use**: Provides resources for integrating Ollama’s AI models into applications, enhancing contextual understanding and user interaction in the AyurGenixAI project.
+  **Use**: Run and deploy LLaMA 3.1 models efficiently for healthcare NLP applications.
 
-### 3. AI-Powered Analysis - Gemini API
-- [Gemini API Documentation](https://ai.google.dev/gemini-api/docs)  
-  **Use**: Enables the use of advanced AI analysis tools for generating insights, improving the quality of Ayurvedic recommendations and user engagement.
+- [LLaMA Model by Meta](https://ai.meta.com/llama/)  
+  **Use**: Official resources for LLaMA pre-trained models and their customization.
 
-### 4. Backend Development
-Flask
-- [Flask Documentation](https://flask.palletsprojects.com/en/2.3.x/)  
-  **Use**: A micro web framework for Python, used to build lightweight APIs for the AyurGenixAI backend.
-
-- [Flask API Quickstart Guide](https://flask.palletsprojects.com/en/2.3.x/quickstart/#apis)  
-  **Use**: Provides a step-by-step guide to creating APIs with Flask, facilitating rapid development of backend services.
-
-Django
+### 3. Backend Development
 - [Django Documentation](https://docs.djangoproject.com/en/stable/)  
-  **Use**: A high-level Python web framework that promotes rapid development and clean, pragmatic design, suitable for building robust web applications.
+  **Use**: Build robust, secure, and scalable web apps with REST APIs.
 
-- [Django Rest Framework](https://www.django-rest-framework.org/)  
-  **Use**: An extension of Django that simplifies the creation of RESTful APIs, essential for serving data to the frontend of the AyurGenixAI application.
+- [Django REST Framework](https://www.django-rest-framework.org/)  
+  **Use**: Essential for backend API development and database integration.
 
-### 5. Frontend Development - React
-- [React Documentation](https://reactjs.org/docs/getting-started.html)  
-  **Use**: A JavaScript library for building user interfaces, allowing for the creation of interactive and dynamic web applications for AyurGenixAI.
+### 4. Database
+- [PostgreSQL Docs](https://www.postgresql.org/docs/)  
+  **Use**: Reliable, SQL-based storage for structured Ayurvedic data.
 
-- [Axios in React](https://axios-http.com/docs/intro)  
-  **Use**: A promise-based HTTP client for the browser and Node.js, facilitating easy data fetching and interaction with the backend APIs.
+### 5. Model Training Frameworks
+- [PyTorch](https://pytorch.org/docs/stable/index.html)  
+  **Use**: Ideal for custom NLP model experimentation and LLaMA fine-tuning.
 
-### 6. Database - MongoDB
-- [MongoDB Documentation](https://www.mongodb.com/docs/)  
-  **Use**: A NoSQL database that allows for flexible data storage, ideal for handling diverse Ayurvedic data structures.
+- [Hugging Face Model Hub](https://huggingface.co/models)  
+  **Use**: Access to pre-trained healthcare NLP models and finetuning utilities.
 
-- [MongoDB Atlas Setup](https://www.mongodb.com/cloud/atlas)  
-  **Use**: Provides a cloud database solution for easy setup, management, and scaling of the database for the AyurGenixAI project.
+### 6. Deployment Platforms
+- [Netlify](https://docs.netlify.com/)  
+  **Use**: Easy frontend deployment with continuous integration support.
 
-### 7. Model Training Frameworks
-  TensorFlow
-- [TensorFlow Documentation](https://www.tensorflow.org/)  
-  **Use**: A powerful open-source framework for building and training machine learning models, suitable for developing AI components in AyurGenixAI.
+- [Vercel](https://vercel.com/docs)  
+  **Use**: Optimized deployment for React apps with backend functions.
 
-### 8. Hugging Face - Pretrained Models and Fine-Tuning
-- [Hugging Face](https://huggingface.co/)  
-  **Use**: A platform for accessing a wide range of pretrained models and tools for fine-tuning, particularly useful for NLP tasks in the AyurGenixAI application.
+- [Heroku (Flask)](https://devcenter.heroku.com/articles/getting-started-with-python)  
+  **Use**: Deploy Flask apps quickly for demo or MVP stages.
 
-### 9. Deployment Platforms
-  Frontend
-- [Deploying Frontend with Netlify](https://docs.netlify.com/)  
-  **Use**: A platform for deploying static websites and frontend applications, providing continuous deployment and hosting for the React application.
+## 📜 Citation
 
-- [Deploying Frontend with Vercel](https://vercel.com/docs)  
-  **Use**: An optimized platform for deploying frontend applications, enhancing performance and user experience for the AyurGenixAI project.
+If you use the dataset or AyurGenixAI in your work, please cite:
 
-Backend
-- [Deploying Flask on Heroku](https://devcenter.heroku.com/articles/getting-started-with-python)  
-  **Use**: A guide for deploying Flask applications to Heroku, simplifying the process of making the backend accessible online.
+```plaintext
+Kirti Rane, Yadnesh Bhanushali, and Nikita Yadav. (2025). AyurGenixAI: Ayurvedic Dataset [Data set]. Kaggle. https://doi.org/10.34740/KAGGLE/DS/7148374
+```
 
-- [AWS Elastic Beanstalk for Django Deployment](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-django.html)  
-  **Use**: Provides resources for deploying Django applications on AWS, allowing for scalable and reliable hosting of the backend services.
-  
 ## Accessing the Website
 
 ## Contributing

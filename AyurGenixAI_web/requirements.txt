@@ -1,0 +1,8 @@
+Django>=4.2,<5.0
+gunicorn
+psycopg2-binary  # Required if you're using PostgreSQL (Render default)
+whitenoise  # For serving static files
+python-decouple  # For environment variable management (optional but recommended)
+requests  # In case you call external APIs like your LLaMA model
+transformers
+torch

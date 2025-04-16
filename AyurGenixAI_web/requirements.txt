@@ -1,5 +1,5 @@
 # Django framework
-Django>=4.0,<5.0
+Django
 
 # Production server
 gunicorn
@@ -8,8 +8,8 @@ gunicorn
 psycopg2-binary
 
 # LLaMA model and Hugging Face support
-transformers>=4.31.0
-torch>=2.0.0
+transformers
+torch
 sentencepiece
 accelerate
 bitsandbytes

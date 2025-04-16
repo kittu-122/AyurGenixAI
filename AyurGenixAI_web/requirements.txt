@@ -1,8 +1,24 @@
-Django>=4.2,<5.0
+# Django framework
+Django>=4.0,<5.0
+
+# Production server
 gunicorn
-psycopg2-binary  # Required if you're using PostgreSQL (Render default)
-whitenoise  # For serving static files
-python-decouple  # For environment variable management (optional but recommended)
-requests  # In case you call external APIs like your LLaMA model
-transformers
-torch
+
+# PostgreSQL database connector
+psycopg2-binary
+
+# LLaMA model and Hugging Face support
+transformers>=4.31.0
+torch>=2.0.0
+sentencepiece
+accelerate
+bitsandbytes
+
+# Used in llm_utils.py
+pandas
+
+# Environment variable management (optional but good for secrets)
+python-dotenv
+
+# For API calls or external integrations
+requests

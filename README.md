@@ -49,21 +49,20 @@ In the modern digital era, users often struggle to access personalized and trust
 | **AI Engine**| NLP pipeline + LLaMA 3.1 (Generative AI) for context-aware recommendations |
 | **Database** | PostgreSQL                                                                  |
 | **Chatbot**  | LLaMA-based multilingual, dynamic chatbot                                   |
-| **Deployment**| Render                                                                     |
-| **Backend Framework**       | FastAPI                                                      |
+| **Deployment**| Render via FastAPI                                                         |
 
 ## 🛠️ Technology Stack
 
-| Category         | Tools & Frameworks                                                                 |
-|------------------|-------------------------------------------------------------------------------------|
-| **Programming**  | Python                                                                             |
-| **Frameworks**   | Django, Django REST Framework                                                      |
-| **AI/ML**        | Scikit-learn, Hugging Face Transformers, PyTorch, Ollama (LLaMA 3.1)               |
-| **NLP**          | NLTK, LLaMA                                                                        |
-| **Database**     | PostgreSQL                                                                         |
-| **Frontend**     | HTML, CSS                                                                          |
-| **Deployment**   | Render                                                                             |
-| **Backend Framework**       | FastAPI                                                                 |
+| Category                    | Tools & Frameworks                                                                 |
+|-----------------------------|------------------------------------------------------------------------------------|
+| **Programming**             | Python                                                                             |
+| **Frameworks**              | Django, Django REST Framework                                                      |
+| **AI/ML**                   | Scikit-learn, Hugging Face Transformers, PyTorch, Ollama (LLaMA 3.1)               |
+| **NLP**                     | NLTK, LLaMA                                                                        |
+| **Database**                | PostgreSQL                                                                         |
+| **Frontend**                | HTML, CSS                                                                          |
+| **Deployment**              | Render                                                                             |
+| **Backend Framework**       | FastAPI                                                                            |
 
 ## Components
 - **Data Processing:** Scripts for preprocessing data and preparing it for model training.

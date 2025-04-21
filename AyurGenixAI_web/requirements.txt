@@ -1,5 +1,5 @@
 # Django framework
-Django
+django
 
 # Production server
 gunicorn

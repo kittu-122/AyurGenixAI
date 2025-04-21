@@ -49,8 +49,8 @@ In the modern digital era, users often struggle to access personalized and trust
 | **AI Engine**| NLP pipeline + LLaMA 3.1 (Generative AI) for context-aware recommendations |
 | **Database** | PostgreSQL                                                                  |
 | **Chatbot**  | LLaMA-based multilingual, dynamic chatbot                                   |
-| **Deployment**| Heroku (backend), Netlify or Vercel (frontend)                             |
-
+| **Deployment**| Render                                                                     |
+| **Backend Framework**       | FastAPI                                                      |
 
 ## 🛠️ Technology Stack
 
@@ -62,8 +62,8 @@ In the modern digital era, users often struggle to access personalized and trust
 | **NLP**          | NLTK, LLaMA                                                                        |
 | **Database**     | PostgreSQL                                                                         |
 | **Frontend**     | HTML, CSS                                                                          |
-| **Deployment**   | Heroku, Netlify, Vercel, AWS Elastic Beanstalk                                     |
-| **Others**       | Docker (optional), Pandas, Matplotlib, Seaborn                                     |
+| **Deployment**   | Render                                                                             |
+| **Backend Framework**       | FastAPI                                                                 |
 
 ## Components
 - **Data Processing:** Scripts for preprocessing data and preparing it for model training.
@@ -183,15 +183,14 @@ python recommendation/formulation_engine.py
 - [Hugging Face Model Hub](https://huggingface.co/models)  
   **Use**: Access to pre-trained healthcare NLP models and finetuning utilities.
 
-### 6. Deployment Platforms
-- [Netlify](https://docs.netlify.com/)  
-  **Use**: Easy frontend deployment with continuous integration support.
+### 6. Deployment Platforms  
+- [Render](https://render.com/docs)  
+  **Use**: Full-stack deployment platform supporting web services, static sites, background workers, and APIs. Automatically deploys from Git repositories.
 
-- [Vercel](https://vercel.com/docs)  
-  **Use**: Optimized deployment for React apps with backend functions.
+### 7. Backend Framework  
+- [FastAPI](https://fastapi.tiangolo.com/)  
+  **Use**: Modern, high-performance Python framework for building APIs. Offers asynchronous support, automatic docs (Swagger & ReDoc), and is ideal for scalable applications.
 
-- [Heroku (Flask)](https://devcenter.heroku.com/articles/getting-started-with-python)  
-  **Use**: Deploy Flask apps quickly for demo or MVP stages.
 
 ## 📜 Citation
 
@@ -201,7 +200,9 @@ If you use the dataset or AyurGenixAI in your work, please cite:
 Kirti Rane, Yadnesh Bhanushali, and Nikita Yadav. (2025). AyurGenixAI: Ayurvedic Dataset [Data set]. Kaggle. https://doi.org/10.34740/KAGGLE/DS/7148374
 ```
 
-## Accessing the Website
+## Accessing the Website  
+You can access the deployed AyurGenixAI service using the following link:  
+👉 [AyurGenixAI Web App](https://ayurgenix-service-en5p.onrender.com/)
 
 ## Contributing
 Contributions to the project are welcome! Feel free to submit pull requests, report issues, or suggest enhancements to improve AyurGenixAI.
